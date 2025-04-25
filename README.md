@@ -1,44 +1,54 @@
-项目简介
-这是一个基于 Python 的多功能豆瓣数据采集系统，包含 Scrapy、Requests 和 Selenium 三种实现方案，适用于不同场景的数据采集需求。
+# 网络爬虫项目集
 
-功能模块
-1. Scrapy 爬虫 (/douban)
-完整实现了 Scrapy 爬虫框架，包含以下组件：
+包含使用Scrapy、Requests和Selenium实现的豆瓣数据爬取工具
 
-spiders/douban_spider.py - 核心爬虫逻辑
+## 文件说明
 
-items.py - 数据字段定义
+### Scrapy系列
+- `doubanf`: Scrapy与Selenium整合版
+- `douban-model`: 豆瓣性能测试文件
 
-pipelines.py - 数据处理和存储
+### Requests系列
+- `request-model`: Requests性能测试文件
+- `request-ip-agent`: 增加代理IP池和多线程优化的版本
 
-settings.py - 爬虫配置
+### Selenium系列
+- `selenium-model`: Selenium性能测试文件
+- `selenium-behavior`: 模拟人类操作行为(随机滚动/停顿等)
 
-特点：
+## 功能说明
 
-自动翻页功能
+- 支持自动翻页功能
+- 数据持久化存储
+- 注意IP代理（重要注意事项可见）
+-`doubanf`爬取用selenium，处理用scrapy框架
 
-数据持久化存储
+## 数据输出
 
-支持 CSV 和 Excel 格式输出
+所有爬虫结果均保存为CSV格式文件，包含：
+- 原始爬取数据
+- 清洗后的规整数据
 
-完善的异常处理机制
+## 重要注意事项
 
-2. Requests 实现方案
-提供两种 Requests 实现方式：
+### 浏览器驱动
+- 必须确保`msedgedriver.exe`与本地Edge浏览器版本匹配
+  - 版本不匹配会导致运行失败
+  - 浏览器更新后需重新下载对应版本的驱动
 
-模块	描述	特点
-request-model	基础实现	简单易用，适合初学者
-request-ip-agent	高级实现	支持代理IP池和多线程
-3. Selenium 实现方案
-提供两种浏览器自动化方案：
+### Cookie维护
+- 需要定期更换有效的Cookie
+  - 使用登录后的Cookie可爬取全部页数
+  - 未登录状态仅能获取前5页数据
 
-模块	描述	特点
-selenium-model	基础实现	标准浏览器操作
-selenium-behavior	高级实现	模拟人类操作行为
-使用说明
-环境要求
-Python 3.8+
+### User-Agent设置
+- 若被网站拦截，需更换用户代理列表中的值
 
-Edge 浏览器
+### 代理IP配置
+- 当前使用付费代理IP(有效期至2025年6月)
+- 剩余可用IP数量：100+
+- 到期或耗尽后需手动更新代理池配置
 
-匹配的 msedgedriver
+## !!!一定要手动更新cookie和user-agent
+
+> 本项目为个人学习用途，欢迎指正交流！
