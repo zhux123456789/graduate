@@ -15,7 +15,7 @@ class ProxyPool:
         self.USERNAME = "d2183389021"
         self.PASSWORD = "231wtih8"
         self.proxy_queue = Queue()
-        self.THREAD_COUNT = 5
+        self.THREAD_COUNT = 3  #线程数
 
     def fetch_proxies(self):
         """获取代理列表"""
@@ -50,9 +50,9 @@ class DoubanCrawler:
     def __init__(self, proxy_pool):
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36 Core/1.94.249.400 QQBrowser/12.5.5659.400',
-            'cookie': '_TDID_CK=1744910449602; 6333762c95037d16=llodr4gW7Y2OsfnhfKcguS5DvhDJknivL2RToqF1OtzhWETUha6WYRDQ7Z38uxtxyF%2Bd2yYzJ1agaZlMwTmwhOu2etpxKD%2BN0Fl5BWdXgWygqZjEMbZSfJOIxlLZrdmjC00aLFEBF4hBbRi8SljE%2FqmcWsKjtL1qXI4fXkDhBPTWKBg%2FmgkFLmLhkQ7tUsU03NfqchKHduGXgDqf9pDcSwcXJQilLC1SiBbIJVrXk4ta1uoJzps7Z4CeYZAD6dSBtuf%2B2iTSMev0bCX9Ykfj137RoYJC7EDL0ToS6WpkqG4dpBX%2BOtVmhw%3D%3D; bid=7fJOYgrbJHI; _pk_id.100001.4cf6=27bd481415e42dbf.1742379762.; ll="118200"; _vwo_uuid_v2=DC7A0101853C609944DCA618C5C7C731E|dd905dd5ea7f07427f2d0502ea746342; __yadk_uid=LMBd8SyR8PheeTNhDKf8uLz75nAOGyYy; push_noty_num=0; push_doumail_num=0; __utmv=30149280.28004; __utma=30149280.1024150468.1742379762.1744728782.1744908847.14; __utmc=30149280; __utmz=30149280.1744908847.14.9.utmcsr=cn.bing.com|utmccn=(referral)|utmcmd=referral|utmcct=/; __utmt=1; dbcl2="280044689:kFqoWMd7nnc"; ck=fGWy; __utmt_douban=1; __utma=223695111.665774635.1742379762.1744728782.1744910439.14; __utmb=223695111.0.10.1744910439; __utmc=223695111; __utmz=223695111.1744910439.14.10.utmcsr=douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/; _pk_ref.100001.4cf6=%5B%22%22%2C%22%22%2C1744910439%2C%22https%3A%2F%2Fwww.douban.com%2F%22%5D; _pk_ses.100001.4cf6=1; frodotk_db="db29954f297708d1917cbfed7c651a73"; __utmb=30149280.6.10.1744908847'
+            'cookie': '_TDID_CK=1745549935793; bid=j5GxGkea1xY; ll="118200"; _pk_id.100001.4cf6=4b7169ae9091b92d.1741676850.; push_noty_num=0; push_doumail_num=0; __yadk_uid=9YMMvEi9PMt2bPkAN9QpgviGHHf23C1j; _vwo_uuid_v2=DA43E21C0F8B41C25531D1CFE741208CB|fc0f776385df39e7280b682ef520dedf; __utmv=30149280.28004; _ga=GA1.2.2115326024.1741676810; _ga_PRH9EWN86K=GS1.2.1745289791.1.0.1745289791.0.0.0; ap_v=0,6.0; __utmc=30149280; __utmc=223695111; 6333762c95037d16=Z6ToFcxIDHWUv0d0%2Fd4AGoMlDHcuR3e42oKPze1DQPUTCfMiL1%2Foh0b3x2G%2Fur%2BPtjpoXA14UIdsL7tDw4dHWHCS%2FesD9pZe8zQDSTDriro0Tduoe2aUXRf8POXFsuE1rKMmHy2j7cfc%2BdXrr3jJbYTVlzenAWbNjT61AnVnV9ynKeUDtUL%2FK8Ad6YUxqG7WANmZoLKRXKLUSll%2By32464aDRaBNhPGOook4kkXbTsUZvSdQXB5WqPOp95Qfu%2BYYREajDG7uZF5tcsK32hR7%2BJFodyP3QHIQpgCJfFF%2B9LTCrKmmrmeuqw%3D%3D; ct=y; __utma=30149280.2115326024.1741676810.1745547226.1745549930.30; __utmz=30149280.1745549930.30.13.utmcsr=sogou.com|utmccn=(referral)|utmcmd=referral|utmcct=/link; __utmt=1; __utmb=30149280.1.10.1745549930; _pk_ref.100001.4cf6=%5B%22%22%2C%22%22%2C1745549932%2C%22https%3A%2F%2Fwww.douban.com%2F%22%5D; _pk_ses.100001.4cf6=1; __utma=223695111.1719922726.1741676850.1745547233.1745549932.25; __utmb=223695111.0.10.1745549932; __utmz=223695111.1745549932.25.11.utmcsr=douban.com|utmccn=(referral)|utmcmd=referral|utmcct=/; _TDID_CK=1745549934067'
         }
-        self.request_interval = 3
+        self.request_interval = 5
         self.proxy_pool = proxy_pool
         self.lock = threading.Lock()
         self.url_lock = threading.Lock()
@@ -128,7 +128,8 @@ class DoubanCrawler:
             # 定义CSV文件的字段名
             fieldnames = ['content', 'cleaned_content']
 
-            with open(filename, 'a', newline='', encoding='utf-8') as f:
+            # 使用utf-8-sig编码解决Excel打开乱码问题
+            with open(filename, 'a', newline='', encoding='utf-8-sig') as f:
                 writer = csv.DictWriter(f, fieldnames=fieldnames)
                 if f.tell() == 0:  # 如果是新文件，写入表头
                     writer.writeheader()
@@ -158,7 +159,6 @@ class DoubanCrawler:
             current_url = next_url
             page_count += 1
             time.sleep(self.request_interval + random.uniform(0, 2))
-
         print(f"\n共收集到 {len(urls)} 个分页URL:")
         for i, url in enumerate(urls, 1):
             print(f"{i}. {url}")
@@ -234,7 +234,7 @@ if __name__ == '__main__':
             )
             t.start()
             threads.append(t)
-            time.sleep(1 + random.uniform(0, 1))  # 避免同时发起请求
+            time.sleep(5 + random.uniform(0, 1))  # 避免同时发起请求
 
         # 等待所有线程完成
         print("\n等待所有线程完成...")

@@ -55,9 +55,7 @@ def human_like_scroll(driver):
                 driver.execute_script(f"window.scrollTo(0, {current_pos});")
             else:
                 driver.execute_script(f"window.scrollTo(0, {current_pos});")
-
             random_sleep(0.2, 1.5)
-
             # 安全的鼠标移动（限制在视口范围内）
             if random.random() > 0.6:
                 try:
@@ -74,7 +72,6 @@ def human_like_scroll(driver):
                 except Exception as e:
                     print(f"鼠标移动时的小错误: {str(e)}")
                     continue
-
     except Exception as e:
         print(f"滚动时发生错误: {str(e)}")
         # 出错时执行安全回退的滚动

@@ -1,0 +1,11 @@
+url,status,duration,error
+https://movie.douban.com/subject/27606065/comments?status=P,success,5.01,
+https://movie.douban.com/subject/27606065/comments?status=P,processed,0.23,
+next_page_click,success,0.04,
+https://movie.douban.com/subject/27606065/comments?start=20&limit=20&status=P&sort=new_score,processed,0.15,
+next_page_click,success,0.03,
+https://movie.douban.com/subject/27606065/comments?start=40&limit=20&status=P&sort=new_score,processed,0.16,
+next_page_click,success,0.04,
+https://movie.douban.com/subject/27606065/comments?start=60&limit=20&status=P&sort=new_score,processed,0.15,
+next_page_click,success,0.03,
+https://movie.douban.com/subject/27606065/comments?start=80&limit=20&status=P&sort=new_score,processed,0.15,
